@@ -27,9 +27,8 @@ public class AuthController {
     @PostMapping
     public ResponseEntity<JWTTokenData> login(@RequestBody @Valid DataAuthentication data){
         var authToken = new UsernamePasswordAuthenticationToken(data.login(), data.password());
-        System.out.println(authToken);
         var authentication = manager.authenticate(authToken);
-        System.out.println(authToken);
+
         var JWTToken = tokenService.generateToken((User) authentication.getPrincipal());
 
         return ResponseEntity.ok(new JWTTokenData(JWTToken));
